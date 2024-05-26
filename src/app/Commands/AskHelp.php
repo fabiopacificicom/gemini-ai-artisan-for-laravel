@@ -18,6 +18,7 @@ class AskHelp extends Command
    */
 
   protected $signature = 'pacificdev:ask 
+                          {--table=: Pass a table name to get help with it (optional)}
                           {--model=gemini: Pass a model to use [gemini, gpt] (optional)}
                           ';
 
@@ -37,9 +38,16 @@ class AskHelp extends Command
     // submit the request to a model
 
     if (Str::startsWith($this->option('model'), 'gemini')) {
+
+      // gather specific app context
       $db_details = $this->getArtisanDatabaseShow();
       $about = $this->getArtisanAboutOutput();
-      $this->askGemini("Application data: $about - Database: $db_details - Question: $question");
+      if ($this->option('table')) {
+        $table_details = $this->getArtisanTableData($this->option('table'));
+      }
+      $logs = $this->extractLogFileData();
+      // sumbit the request
+      $this->askGemini("Application data: $about - Database: $db_details $table_details - Log file: $logs - Question: $question");
     }
   }
 
@@ -55,32 +63,6 @@ class AskHelp extends Command
 
 
 
-  private function getArtisanDatabaseShow()
-  {
-    // Call the 'about' Artisan command
-    \Artisan::call('db:show', ['--no-ansi' => true]);
-
-    // Get the output of the last command
-    $output = \Artisan::output();
-
-    return $output;
-  }
-
-
-
-  private function getArtisanAboutOutput()
-  {
-    // Call the 'about' Artisan command
-    \Artisan::call('about', ['--no-ansi' => true]);
-
-    // Get the output of the last command
-    $output = \Artisan::output();
-
-    return $output;
-  }
-
-
-
   private function askGemini($question)
   {
     $this->info('Asking to Gemini...');
@@ -91,7 +73,7 @@ class AskHelp extends Command
       'contents' => [
         [
           'parts' => [
-            ['text' => $question]
+            ['text' => "You are PacificDev's ai-powered command line assistant. Your main task is to help the developer currently working on a Laravel Application. You will be provided with the application details and database information. Support the user with its enquiries at the best of your knowledge." . $question]
           ]
         ]
       ]
@@ -119,5 +101,59 @@ class AskHelp extends Command
       $bar->advance();
     }
     $bar->finish();
+  }
+
+  /* Gathering context from the application */
+
+
+  private function extractLogFileData()
+  {
+    $file = file_get_contents(storage_path('logs/laravel.log'));
+    //dd($file);
+    if (strlen($file) >= 50000) {
+      $this->error('please reduce the size of the log file, max 2000 characters');
+      exit;
+    }
+    return $file;
+  }
+
+
+  private function getArtisanTableData($table = null)
+  {
+    if (!$table) {
+      return '';
+    }
+    // Call the 'about' Artisan command
+    \Artisan::call('db:table', ['--no-ansi' => true, 'table' => $table]);
+
+    // Get the output of the last command
+    $output = \Artisan::output();
+
+    return $output;
+  }
+
+
+  private function getArtisanDatabaseShow()
+  {
+    // Call the 'about' Artisan command
+    \Artisan::call('db:show', ['--no-ansi' => true]);
+
+    // Get the output of the last command
+    $output = \Artisan::output();
+
+    return $output;
+  }
+
+
+
+  private function getArtisanAboutOutput()
+  {
+    // Call the 'about' Artisan command
+    \Artisan::call('about', ['--no-ansi' => true]);
+
+    // Get the output of the last command
+    $output = \Artisan::output();
+
+    return $output;
   }
 }

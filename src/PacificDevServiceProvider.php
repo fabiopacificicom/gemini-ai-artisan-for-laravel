@@ -24,7 +24,6 @@ class PacificDevServiceProvider extends ServiceProvider
     if ($this->app->runningInConsole()) {
       $this->commands([
         AskHelp::class,
-        //AnotherSampleCommand::class
       ]);
     }
   }
