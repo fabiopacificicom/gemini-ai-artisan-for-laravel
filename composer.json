@@ -1,0 +1,29 @@
+{
+  "name": "pacificdev/terminal-assistant",
+  "description": "Get help from your terminal",
+  "type": "library",
+  "authors": [
+    {
+      "name": "fbhood",
+      "email": "mail@fabiopacifici.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PacificDev\\TerminalAssistant\\": "src/",
+      "PacificDev\\TerminalAssistant\\Commands\\": "src/app/Commands/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "PacificDev\\TerminalAssistant\\PacificDevServiceProvider"
+      ]
+    }
+  },
+
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "*"
+  }
+}
