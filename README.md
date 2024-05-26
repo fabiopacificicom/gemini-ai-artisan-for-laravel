@@ -1,49 +1,26 @@
-# Sample package usage -
+# Gemini AI Artisan for Laravel
+
+Install the package in your laravel application then run `artisan list` to find out the available commands.
+
+## Requirements
+
+@TODO
+
+## Installation
+
+@TODO
 
 ## HOW TO USE
 
-Clone the repo locally and assign to the package your desider name
-for example:
+Example usage
 
 ```bash
-git clone git@bitbucket.org:fbhood/packaged-for-laravel.git PacificDev/TerminalAssistant
+php artisan pacificdev:ask 
 ```
 
-The above command will scaffold the repo inside PacificDev/TerminalAssistant.
-Search and replase all occurrences of SamplePackage and replace with the name you chosed above
-PacificDev/TerminalAssistant in my case.
+This will prompt for a question.
 
-### Update the autoloader
-
-in the laravel app, find the main composer.json file and under the autoload psr-4 key place
-This two lines.
-
-```json
-  "PacificDev\\TerminalAssistant\\": "src/",
-  "PacificDev\\TerminalAssistant\\Commands\\": "src/app/Commands/"
-```
-
-These are the tow base folders mapped by the autoloader, you might add more as necessary.
-At this point you should be able to see two artian commands under `pacificdev:`
-update the code as you see fits your usecase.
-
-## DEVELOPMENT ONLY
-
-This repo is intended as sample base structure to create
-new laravel packages.
-
-Inside the composer.json file add your development package repository under repositories and add its name under requirements.
-
-```json
-
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:fbhood/packaged-for-laravel.git"
-
-        }
-    ],
-    "require": {
-        "pacificdev/terminal-assistant":"dev-main"
-    },
-```
+**Available options**
+--table: provide a name of a table, the table structure context will be provided to Gemini to better support.
+--model: this is set to gemini by default for now
+--logs: The default yes, set to no to ignore your log file. (log file max 5000 characters)
