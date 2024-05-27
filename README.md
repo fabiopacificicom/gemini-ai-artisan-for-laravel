@@ -1,12 +1,15 @@
-# Gemini AI Artisan for Laravel
+# Gemini AI Artisan for Laravel 11
 
 Install the package in your laravel application then run `artisan list` to find out the available commands.
 
 ## Requirements
 
-To use this package you need to provide a google gemini AI API KEY in your .env file add
+To use this package you need to:
 
-- Google API for Gemini AI
+- establish db connection by editing your application .env file.
+- create and provide a google gemini AI API KEY in your .env file
+
+### Google API for Gemini AI
 
 ```env
 TERMINAL_ASSISTANT_TOKEN=your_api_key_here
@@ -16,11 +19,14 @@ TERMINAL_ASSISTANT_ENDPOINT=https://generativelanguage.googleapis.com/v1beta/mod
 
 ## Installation
 
-@TODO
+```bash
+composer create-project laravel/laravel:^10.0 example-app
+# After the db is connected, install the package by running
+composer require pacificdev/terminal-assistant
+
+```
 
 ## HOW TO USE
-
-Example usage
 
 ```bash
 php artisan pacificdev:ask 
