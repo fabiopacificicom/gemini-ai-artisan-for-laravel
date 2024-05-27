@@ -77,13 +77,17 @@ class AskHelp extends Command
 
   private function extractLogFileData()
   {
-    $file = file_get_contents(storage_path('logs/laravel.log'));
-    //dd($file);
-    if (strlen($file) >= 5000) {
-      $this->error('please reduce the size of the log file, max 5000 characters');
-      exit;
+
+    if (storage_path('logs/laravel.log')) {
+      $file = file_get_contents(storage_path('logs/laravel.log'));
+      //dd($file);
+      if (strlen($file) >= 5000) {
+        $this->error('please reduce the size of the log file, max 5000 characters');
+        exit;
+      }
+      return $file;
     }
-    return $file;
+    return 'No logs file available. To check the logs there should be a file called laravel.log inside the logs directory.';
   }
 
 

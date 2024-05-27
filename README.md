@@ -28,7 +28,8 @@ php artisan pacificdev:ask
 
 This will prompt for a question.
 
-**Available options**
---table: provide a name of a table, the table structure context will be provided to Gemini to better support.
---model: this is set to gemini by default for now
---logs: The default yes, set to no to ignore your log file. (log file max 5000 characters)
+**Available options**:
+
+1. --table: provide a name of a table, the table structure context will be provided to Gemini to better support.
+2. --model: this is set to gemini by default for now
+3. --logs: The default yes, set to no to ignore your log file. (log file max 5000 characters)
