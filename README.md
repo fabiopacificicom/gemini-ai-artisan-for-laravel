@@ -20,7 +20,7 @@ TERMINAL_ASSISTANT_ENDPOINT=https://generativelanguage.googleapis.com/v1beta/mod
 ## Installation
 
 ```bash
-composer create-project laravel/laravel:^10.0 example-app
+composer create-project laravel/laravel example-app
 # After the db is connected, install the package by running
 composer require pacificdev/terminal-assistant
 
