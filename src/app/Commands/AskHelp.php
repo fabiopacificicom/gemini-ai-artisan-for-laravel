@@ -12,12 +12,12 @@ class AskHelp extends Command
 {
 
 
-  /** 
+  /**
    * Signature
    * @var string
    */
 
-  protected $signature = 'pacificdev:ask 
+  protected $signature = 'pacificdev:ask
                           {--logs=yes: Set logs to false to ignore the log file in logs/laravel.log }
                           {--table=: Pass a table name to get help with it (optional)}
                           {--model=gemini: Pass a model to use [gemini, gpt] (optional)}
@@ -36,23 +36,24 @@ class AskHelp extends Command
     $question = htmlspecialchars($this->ask('How can i help you today?'));
     //dd($question);
 
+    $db_details = '';
+    $table_details = '';
+    $about = $this->getArtisanAboutOutput();
+    $logs = 'No log file provided';
     // submit the request to a model
 
     if (Str::startsWith($this->option('model'), 'gemini')) {
 
       // gather specific app context
+
       $db_details = $this->getArtisanDatabaseShow();
-      $about = $this->getArtisanAboutOutput();
       if ($this->option('table') != null) {
         $table_details = $this->getArtisanTableData($this->option('table'));
       }
 
 
-
       if (Str::startsWith($this->option('logs'), 'yes')) {
         $logs = $this->extractLogFileData();
-      } else {
-        $logs = 'No log file provided';
       }
 
       //dd($logs);
@@ -77,11 +78,10 @@ class AskHelp extends Command
 
   private function extractLogFileData()
   {
-
-    if (storage_path('logs/laravel.log')) {
+    if (file_exists(storage_path('logs/laravel.log'))) {
       $file = file_get_contents(storage_path('logs/laravel.log'));
       //dd($file);
-      if (strlen($file) >= 5000) {
+      if (strlen($file) >= 35000) {
         $this->error('please reduce the size of the log file, max 5000 characters');
         exit;
       }
