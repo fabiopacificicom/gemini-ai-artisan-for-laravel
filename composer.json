@@ -2,6 +2,7 @@
   "name": "pacificdev/gemini-ai-terminal-assistant-for-laravel",
   "description": "Get help from your terminal",
   "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "fbhood",
