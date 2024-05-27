@@ -25,7 +25,6 @@
   "require": {
     "php": "^8.0 || ^8.1",
     "illuminate/support": "*",
-    "doctrine/dbal": "3.0",
-    "laravel-zero/laravel-zero": "^9.1.4"
+    "laravel-zero/laravel-zero": "^10.1.0"
   }
 }

@@ -8,6 +8,7 @@ To use this package you need to:
 
 - establish db connection by editing your application .env file.
 - create and provide a google gemini AI API KEY in your .env file
+- "doctrine/dbal": "^3.5.1",
 
 ### Google API for Gemini AI
 
@@ -20,13 +21,12 @@ TERMINAL_ASSISTANT_ENDPOINT=https://generativelanguage.googleapis.com/v1beta/mod
 ## Installation
 
 ```bash
-composer create-project laravel/laravel:^9.0 example-app
+composer create-project laravel/laravel:^10.0 example-app
 # After the db is connected, install the package by running
 composer require pacificdev/terminal-assistant
-
+# Install doctrine
+composer require doctrine/dbal:^3.5.1
 ```
-
->note: if you get a Doctrine 3.0 error run `composer update` after the package is installed.
 
 ## HOW TO USE
 
