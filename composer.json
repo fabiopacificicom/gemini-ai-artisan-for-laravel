@@ -24,7 +24,7 @@
   },
 
   "require": {
-    "php": "^8.0 || ^8.1",
+    "php": "^8.2 || ^8.3",
     "illuminate/support": "*",
     "laravel-zero/laravel-zero": "^10.1.0"
   }
